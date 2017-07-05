@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1499225716 source:g:\projects\ctogui\ctogui.cpp
+	"ctogui.h"
+
+1499225952 g:\projects\ctogui\ctogui.h
+	"main.h"
+
+1499225858 g:\projects\ctogui\main.h
+	<windows.h>
+
+1499225866 source:g:\projects\ctogui\main.cpp
+	"main.h"
+
