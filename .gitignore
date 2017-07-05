@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+*.lib
+
+# Running Dynamic libraries
+*.dll
+
+# layout
+*.layout
