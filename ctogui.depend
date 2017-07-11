@@ -11,3 +11,18 @@
 1499225866 source:g:\projects\ctogui\main.cpp
 	"main.h"
 
+1499670901 source:z:\projects\ctogui\ctogui.cpp
+	"ctogui.h"
+	<cstring>
+
+1499670927 z:\projects\ctogui\ctogui.h
+	"main.h"
+	<GL/glut.h>
+
+1499225858 z:\projects\ctogui\main.h
+	<windows.h>
+
+1499670902 source:z:\projects\ctogui\main.cpp
+	"main.h"
+	"ctogui.h"
+

@@ -18,3 +18,5 @@
 
 # layout
 *.layout
+
+/bin/

@@ -15,11 +15,16 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-DBUILD_DLL" />
 					<Add option="-g" />
+					<Add option="-DBUILD_DLL" />
 				</Compiler>
 				<Linker>
 					<Add library="user32" />
+					<Add library="libglut32.a" />
+					<Add library="libglu32.a" />
+					<Add library="libglut.a" />
+					<Add library="libgdi32.a" />
+					<Add library="libopengl32.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -30,16 +35,23 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
+					<Add option="-O2" />
 					<Add option="-Wall" />
 					<Add option="-DBUILD_DLL" />
-					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="user32" />
+					<Add library="libopengl32.a" />
+					<Add library="libglut32.a" />
+					<Add library="libglu32.a" />
+					<Add library="libglut.a" />
+					<Add library="libgdi32.a" />
 				</Linker>
 			</Target>
 		</Build>
+		<Unit filename="ctogui.cpp" />
+		<Unit filename="ctogui.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Extensions>
