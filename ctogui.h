@@ -3,6 +3,7 @@
 
 #include"main.h"
 #include<GL/glut.h>
+#include<GL/glext.h>
 
 #define TIMER_UPDATE 1
 
@@ -16,13 +17,15 @@ class DLL_EXPORT CtoGui
 public:
     CtoGui();
     ~CtoGui();
-    void Init(int *argc, char **argv, int width, int hight, const char *title);
+    void Init(int *argc, char **argv, int width, int height, const char *title);
     void SetImgSize(int iw, int ih);
+    void SetImg(char ch, const char *bpath);
     void SetScreenSize(int iw, int ih);
     void SetUpdateTimer(int tim);
-    virtual void UpdateScreen();
+    void SetUpdateScreenFunc(void(*p)());
     void BeginPlay();
-    void DrawScreen(char *buf);
+    void DrawScreen(const char *buf);
+    GLubyte* ReadBMP(const char *bpath);
 
 private:
     void Display();
@@ -31,6 +34,10 @@ private:
 
     int img_width, img_height;
     int scr_width, scr_height;
+    int win_width, win_height;
+    GLubyte *imgs[256];
+
+    void (*UpdateScreen)(void);
 
 public:
     int cur;
