@@ -12,38 +12,21 @@ extern "C"
 {
 #endif
 
-class DLL_EXPORT CtoGui
+namespace CtoGui
 {
-public:
-    CtoGui();
-    ~CtoGui();
-    void Init(int *argc, char **argv, int width, int height, const char *title);
-    void SetImgSize(int iw, int ih);
-    void SetImg(char ch, const char *bpath);
-    void SetScreenSize(int iw, int ih);
-    void SetUpdateTimer(int tim);
-    void SetUpdateScreenFunc(void(*p)());
-    void BeginPlay();
-    void DrawScreen(const char *buf);
-    GLubyte* ReadBMP(const char *bpath);
+    void DLL_EXPORT Init(int *argc, char **argv, int width, int height, const char *title);
+    void DLL_EXPORT SetImgSize(int iw, int ih);
+    void DLL_EXPORT SetImg(char ch, const char *bpath);
+    void DLL_EXPORT SetScreenSize(int iw, int ih);
+    void DLL_EXPORT SetUpdateTimer(int tim);
+    void DLL_EXPORT SetUpdateScreenFunc(void(*p)());
+    void DLL_EXPORT BeginPlay();
+    void DLL_EXPORT DrawScreen(const char *buf);
 
-private:
-    void Display();
-    void Idle();
-    void Timer(int id);
-
-    int img_width, img_height;
-    int scr_width, scr_height;
-    int win_width, win_height;
-    GLubyte *imgs[256];
-
-    void (*UpdateScreen)(void);
-
-public:
-    int cur;
-    int time_to_update;
-    bool timer_setted;
-    char *scr[2];
+    int img_width = -1, img_height = -1;
+    int scr_width = -1, scr_height = -1;
+    int win_width = -1, win_height = -1;
+    int time_to_update = -1;
 };
 
 

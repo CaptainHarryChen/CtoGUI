@@ -18,14 +18,6 @@
 					<Add option="-g" />
 					<Add option="-DBUILD_DLL" />
 				</Compiler>
-				<Linker>
-					<Add library="user32" />
-					<Add library="libglut32.a" />
-					<Add library="libglu32.a" />
-					<Add library="libglut.a" />
-					<Add library="libgdi32.a" />
-					<Add library="libopengl32.a" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/ctogui" prefix_auto="1" extension_auto="1" />
@@ -41,15 +33,17 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="user32" />
-					<Add library="libopengl32.a" />
-					<Add library="libglut32.a" />
-					<Add library="libglu32.a" />
-					<Add library="libglut.a" />
-					<Add library="libgdi32.a" />
 				</Linker>
 			</Target>
 		</Build>
+		<Linker>
+			<Add library="user32" />
+			<Add library="libglut32.a" />
+			<Add library="libglu32.a" />
+			<Add library="libglut.a" />
+			<Add library="libgdi32.a" />
+			<Add library="libopengl32.a" />
+		</Linker>
 		<Unit filename="ctogui.cpp" />
 		<Unit filename="ctogui.h" />
 		<Unit filename="main.cpp" />

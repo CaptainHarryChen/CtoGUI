@@ -1,22 +1,27 @@
 # depslib dependency file v1.0
-1499225716 source:g:\projects\ctogui\ctogui.cpp
-	"ctogui.h"
-
-1499225952 g:\projects\ctogui\ctogui.h
-	"main.h"
-
-1499225858 g:\projects\ctogui\main.h
-	<windows.h>
-
-1499225866 source:g:\projects\ctogui\main.cpp
-	"main.h"
-
-1499841358 source:z:\projects\ctogui\ctogui.cpp
+1499856772 source:g:\projects\ctogui\ctogui.cpp
 	"ctogui.h"
 	<cstring>
 	<cstdio>
 
-1499841276 z:\projects\ctogui\ctogui.h
+1499856218 g:\projects\ctogui\ctogui.h
+	"main.h"
+	<GL/glut.h>
+	<GL/glext.h>
+
+1499225858 g:\projects\ctogui\main.h
+	<windows.h>
+
+1499670902 source:g:\projects\ctogui\main.cpp
+	"main.h"
+	"ctogui.h"
+
+1499857592 source:z:\projects\ctogui\ctogui.cpp
+	"ctogui.h"
+	<cstring>
+	<cstdio>
+
+1499856218 z:\projects\ctogui\ctogui.h
 	"main.h"
 	<GL/glut.h>
 	<GL/glext.h>
@@ -27,4 +32,19 @@
 1499670902 source:z:\projects\ctogui\main.cpp
 	"main.h"
 	"ctogui.h"
+
+1500258288 source:e:\projects\ctogui\ctogui.cpp
+	"ctogui.h"
+	<cstdio>
+
+1500259706 e:\projects\ctogui\ctogui.h
+	"main.h"
+	<GL/glut.h>
+	<GL/glext.h>
+
+1499225858 e:\projects\ctogui\main.h
+	<windows.h>
+
+1500261300 source:e:\projects\ctogui\main.cpp
+	"main.h"
 
