@@ -1,5 +1,4 @@
 #include"main.h"
-#include"ctogui.h"
 
 extern "C" DLL_EXPORT BOOL APIENTRY DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {

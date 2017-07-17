@@ -1,27 +1,62 @@
 #include"ctogui.h"
-#include<cstring>
 #include<cstdio>
 
-CtoGui::CtoGui()
+void Display();
+void Idle();
+void Timer(int id);
+GLubyte* ReadBMP(const char *bpath);
+
+void (*UpdateScreen)(void) = NULL;
+int cur = 0;
+bool timer_setted = false;
+char *scr[2] = {NULL};
+GLubyte *imgs[256] = {NULL};
+
+void Display()
 {
-    img_width = -1;
-    img_height = -1;
-    scr_width = -1;
-    scr_height = -1;
-    scr[0] = NULL;
-    scr[1] = NULL;
-    memset(imgs, 0, sizeof(imgs));
+    using namespace CtoGui;
+
+    for(int i = 0; i < scr_width; i++)
+        for(int j = 0; j < scr_height; j++)
+        {
+            int pos = i * scr_width + j;
+            if(scr[cur][pos] != scr[cur ^ 1][pos] && imgs[(int)scr[cur][pos]] != NULL)
+            {
+                glRasterPos2d(i * img_width / win_width, j * img_height / win_height);
+                glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs[(int)scr[cur][pos]]);
+            }
+        }
+
+    glutSwapBuffers();
 }
 
-CtoGui::~CtoGui()
+void Idle()
 {
-    if(scr[0])
-        delete[] scr[0];
-    if(scr[1])
-        delete[] scr[1];
-    for(int i = 0; i < 256; i++)
-        if(imgs[i])
-            delete[] imgs[i];
+    using namespace CtoGui;
+
+    if(timer_setted == false)
+    {
+        if(UpdateScreen != NULL)
+            (*UpdateScreen)();
+        Display();
+    }
+}
+
+void Timer(int id)
+{
+    using namespace CtoGui;
+
+    switch(id)
+    {
+    case TIMER_UPDATE:
+        if(UpdateScreen != NULL)
+            (*UpdateScreen)();
+        Display();
+        glutTimerFunc(time_to_update, &Timer, TIMER_UPDATE);
+        break;
+    default:
+        break;
+    }
 }
 
 void CtoGui::Init(int *argc, char **argv, int width, int height, const char *title)
@@ -38,51 +73,10 @@ void CtoGui::Init(int *argc, char **argv, int width, int height, const char *tit
 
     glutCreateWindow(title);
 
-    glutDisplayFunc((void(*)())&CtoGui::Display);
-    glutIdleFunc((void(*)())&CtoGui::Idle);
+    glutDisplayFunc(&Display);
+    glutIdleFunc(&Idle);
 
     cur=0;
-}
-
-void CtoGui::Display()
-{
-    for(int i = 0; i < scr_width; i++)
-        for(int j = 0; j < scr_height; j++)
-        {
-            int pos = i * scr_width + j;
-            if(scr[cur][pos] != scr[cur ^ 1][pos] && imgs[(int)scr[cur][pos]] != NULL)
-            {
-                glRasterPos2d(i * img_width / win_width, j * img_height / win_height);
-                glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs[(int)scr[cur][pos]]);
-            }
-        }
-
-    glutSwapBuffers();
-}
-
-void CtoGui::Idle()
-{
-    if(!timer_setted)
-    {
-        if(UpdateScreen != NULL)
-            (*UpdateScreen)();
-        Display();
-    }
-}
-
-void CtoGui::Timer(int id)
-{
-    switch(id)
-    {
-    case TIMER_UPDATE:
-        if(UpdateScreen != NULL)
-            (*UpdateScreen)();
-        Display();
-        glutTimerFunc(time_to_update, (void(*)(int))&CtoGui::Timer, TIMER_UPDATE);
-        break;
-    default:
-        break;
-    }
 }
 
 void CtoGui::SetImgSize(int iw, int ih)
@@ -108,7 +102,7 @@ void CtoGui::SetUpdateTimer(int tim)
 {
     timer_setted = true;
     time_to_update = tim;
-    glutTimerFunc(time_to_update, (void(*)(int))&CtoGui::Timer, TIMER_UPDATE);
+    glutTimerFunc(time_to_update, &Timer, TIMER_UPDATE);
 }
 
 void CtoGui::SetUpdateScreenFunc(void (*p)())
@@ -127,8 +121,10 @@ void CtoGui::DrawScreen(const char *buf)
     memcpy(scr[cur], buf, scr_width * scr_height);
 }
 
-GLubyte* CtoGui::ReadBMP(const char *bpath)
+GLubyte* ReadBMP(const char *bpath)
 {
+    using namespace CtoGui;
+
     GLint ImageWidth,ImageHeight;
     GLint PixelLength;
     GLubyte *PixelData;
