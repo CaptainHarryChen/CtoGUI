@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
     CtoGui::SetScreenSize(60,40);
     CtoGui::SetUpdateScreenFunc(&Update);
 
+    for(int i=0;i<40;i++)
+        for(int j=0;j<60;j++)
+            Map[i][j]='*';
+
     CtoGui::BeginPlay();
     return 0;
 }
