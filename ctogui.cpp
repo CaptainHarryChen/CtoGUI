@@ -7,6 +7,9 @@ void Timer(int id);
 GLubyte* ReadBMP(const char *bpath);
 
 void (*UpdateScreen)(void) = NULL;
+void (*KeyProcess)(unsigned char, int, int) = NULL;
+void (*SpecialProcess)(int, int, int) = NULL;
+void (*MouseProcess)(int, int, int, int);
 int cur = 0;
 bool timer_setted = false;
 char *scr[2] = {NULL};
@@ -33,11 +36,6 @@ void Display()
             }
         }
 
-    //glRecti(50,50,150,150);
-    //glRasterPos2i(100,100);
-    //glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs['*']);
-
-    //glFlush();
     glutSwapBuffers();
 }
 
@@ -70,6 +68,24 @@ void Timer(int id)
     }
 }
 
+void OnKeyBoard(unsigned char key, int x, int y)
+{
+    if(KeyProcess != NULL)
+        KeyProcess(key, x, y);
+}
+
+void OnSpecialKey(int key, int x,int y)
+{
+    if(SpecialProcess != NULL)
+        SpecialProcess(key, x, y);
+}
+
+void OnMouse(int button, int state, int x, int y)
+{
+    if(MouseProcess != NULL)
+        MouseProcess(button, state, x, y);
+}
+
 void CtoGui::Init(int *argc, char **argv, int width, int height, const char *title)
 {
     glutInit(argc, argv);
@@ -87,6 +103,9 @@ void CtoGui::Init(int *argc, char **argv, int width, int height, const char *tit
 
     glutDisplayFunc(&Display);
     glutIdleFunc(&Idle);
+    glutKeyboardFunc(&OnKeyBoard);
+    glutSpecialFunc(&OnSpecialKey);
+    glutMouseFunc(&OnMouse);
 
     cur=0;
 }
@@ -120,6 +139,21 @@ void CtoGui::SetUpdateTimer(int tim)
 void CtoGui::SetUpdateScreenFunc(void (*p)())
 {
     UpdateScreen = p;
+}
+
+void CtoGui::SetKeyFunc(void(*p)(unsigned char, int, int))
+{
+    KeyProcess = p;
+}
+
+void CtoGui::SetSpecialFunc(void(*p)(int, int, int))
+{
+    SpecialProcess = p;
+}
+
+void CtoGui::SetMouseFunc(void(*p)(int, int, int, int))
+{
+    MouseProcess = p;
 }
 
 void CtoGui::BeginPlay()
@@ -167,4 +201,12 @@ GLubyte* ReadBMP(const char *bpath)
     fclose(pFile);
 
     return PixelData;
+}
+
+void CtoGui::ChangeXY(int x, int y, int &resx, int &resy)
+{
+    y = win_height - y;
+
+    resx = x / (win_width / scr_width);
+    resy = y / (win_height / scr_height);
 }

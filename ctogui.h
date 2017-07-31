@@ -20,8 +20,12 @@ namespace CtoGui
     void DLL_EXPORT SetScreenSize(int iw, int ih);
     void DLL_EXPORT SetUpdateTimer(int tim);
     void DLL_EXPORT SetUpdateScreenFunc(void(*p)());
-    void DLL_EXPORT BeginPlay();
+    void DLL_EXPORT SetKeyFunc(void(*p)(unsigned char, int, int));
+    void DLL_EXPORT SetSpecialFunc(void(*p)(int, int, int));
+    void DLL_EXPORT SetMouseFunc(void(*p)(int, int, int, int));
     void DLL_EXPORT DrawScreen(const char *buf);
+    void DLL_EXPORT BeginPlay();
+    void DLL_EXPORT ChangeXY(int x, int y, int &resx, int &resy);
 
     int img_width = -1, img_height = -1;
     int scr_width = -1, scr_height = -1;
