@@ -3,7 +3,7 @@
 	"ctogui.h"
 	<cstdio>
 
-1501414490 g:\projects\ctogui\ctogui.h
+1501478878 g:\projects\ctogui\ctogui.h
 	"main.h"
 	<GL/glut.h>
 	<GL/glext.h>
@@ -49,6 +49,6 @@
 1500515410 source:e:\projects\ctogui\testctogui.cpp
 	"ctogui.h"
 
-1501411732 source:g:\projects\ctogui\testctogui.cpp
+1501479348 source:g:\projects\ctogui\testctogui.cpp
 	"ctogui.h"
 
