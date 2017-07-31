@@ -6,7 +6,14 @@
 
 #ifdef BUILD_DLL
     #define DLL_EXPORT __declspec(dllexport)
-#else
-    #define DLL_EXPORT __declspec(dllimport)
-#endif
+#endif // BUILD_DLL
+#ifdef TEST_DLL
+    #define DLL_EXPORT
+#endif // TEST_DLL
+#ifndef BUILD_DLL
+    #ifndef TEST_DLL
+        #define DLL_EXPORT __declspec(dllimport)
+    #endif // TEST_DLL
+#endif // BUILD_DLL
+
 

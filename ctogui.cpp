@@ -16,17 +16,28 @@ void Display()
 {
     using namespace CtoGui;
 
-    for(int i = 0; i < scr_width; i++)
-        for(int j = 0; j < scr_height; j++)
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(0, scr_width, 0, scr_height);
+
+    for(int i = 0; i < scr_height; i++)
+        for(int j = 0; j < scr_width; j++)
         {
             int pos = i * scr_width + j;
-            if(scr[cur][pos] != scr[cur ^ 1][pos] && imgs[(int)scr[cur][pos]] != NULL)
+            if(imgs[(int)scr[cur][pos]] != NULL)
             {
-                glRasterPos2d(i * img_width / win_width, j * img_height / win_height);
+                glRasterPos2d(j, i);
                 glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs[(int)scr[cur][pos]]);
             }
         }
 
+    //glRecti(50,50,150,150);
+    //glRasterPos2i(100,100);
+    //glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs['*']);
+
+    //glFlush();
     glutSwapBuffers();
 }
 
@@ -62,6 +73,7 @@ void Timer(int id)
 void CtoGui::Init(int *argc, char **argv, int width, int height, const char *title)
 {
     glutInit(argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
     int cx = GetSystemMetrics(SM_CXFULLSCREEN);
     int cy = GetSystemMetrics(SM_CYFULLSCREEN);
