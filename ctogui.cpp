@@ -23,7 +23,7 @@ void Display()
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, scr_width, 0, scr_height);
+    gluOrtho2D(0, scr_width, scr_height, 0);
 
     for(int i = 0; i < scr_height; i++)
         for(int j = 0; j < scr_width; j++)
@@ -31,7 +31,7 @@ void Display()
             int pos = i * scr_width + j;
             if(imgs[(int)scr[cur][pos]] != NULL)
             {
-                glRasterPos2d(j, i);
+                glRasterPos2d(j, i + 1);
                 glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs[(int)scr[cur][pos]]);
             }
         }
@@ -70,23 +70,29 @@ void Timer(int id)
 
 void OnKeyBoard(unsigned char key, int x, int y)
 {
+    int tx, ty;
+    CtoGui::ChangeXY(x, y, tx, ty);
     if(KeyProcess != NULL)
-        KeyProcess(key, x, y);
+        KeyProcess(key, ty, tx);
 }
 
 void OnSpecialKey(int key, int x,int y)
 {
+    int tx, ty;
+    CtoGui::ChangeXY(x, y, tx, ty);
     if(SpecialProcess != NULL)
-        SpecialProcess(key, x, y);
+        SpecialProcess(key, ty, tx);
 }
 
 void OnMouse(int button, int state, int x, int y)
 {
+    int tx, ty;
+    CtoGui::ChangeXY(x, y, tx, ty);
     if(MouseProcess != NULL)
-        MouseProcess(button, state, x, y);
+        MouseProcess(button, state, ty, tx);
 }
 
-void CtoGui::Init(int *argc, char **argv, int width, int height, const char *title)
+void CtoGui::Init(int *argc, char **argv, int height, int width, const char *title)
 {
     glutInit(argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -95,8 +101,8 @@ void CtoGui::Init(int *argc, char **argv, int width, int height, const char *tit
     int cy = GetSystemMetrics(SM_CYFULLSCREEN);
     glutInitWindowPosition((cx - width) / 2, (cy - height) / 2);
 
-    win_width = width;
     win_height = height;
+    win_width = width;
     glutInitWindowSize(width, height);
 
     glutCreateWindow(title);
@@ -110,10 +116,10 @@ void CtoGui::Init(int *argc, char **argv, int width, int height, const char *tit
     cur=0;
 }
 
-void CtoGui::SetImgSize(int iw, int ih)
+void CtoGui::SetImgSize(int ih, int iw)
 {
-    img_width = iw;
     img_height = ih;
+    img_width = iw;
 }
 
 void CtoGui::SetImg(char ch, const char *bpath)
@@ -121,12 +127,12 @@ void CtoGui::SetImg(char ch, const char *bpath)
     imgs[(int)ch]=ReadBMP(bpath);
 }
 
-void CtoGui::SetScreenSize(int iw, int ih)
+void CtoGui::SetScreenSize(int ih, int iw)
 {
-    scr_width = iw;
     scr_height = ih;
-    scr[0] = new char[iw * ih];
-    scr[1] = new char[iw * ih];
+    scr_width = iw;
+    scr[0] = new char[ih * iw];
+    scr[1] = new char[ih * iw];
 }
 
 void CtoGui::SetUpdateTimer(int tim)
@@ -205,8 +211,7 @@ GLubyte* ReadBMP(const char *bpath)
 
 void CtoGui::ChangeXY(int x, int y, int &resx, int &resy)
 {
-    y = win_height - y;
-
-    resx = x / (win_width / scr_width);
-    resy = y / (win_height / scr_height);
+    resx = x / img_width;
+    resy = y / img_height;
 }
+
