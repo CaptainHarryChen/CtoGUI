@@ -1,6 +1,6 @@
 #include"ctogui.h"
 
-const int dir[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+const int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 char Map[40][60];
 int x, y;
 
@@ -96,14 +96,12 @@ void WSAD(unsigned char key, int kx, int ky)
 
 void Move(int button, int state, int mx, int my)
 {
-    int tx, ty;
     if(button == GLUT_LEFT_BUTTON)
     {
         if(state == GLUT_DOWN)
         {
-            CtoGui::ChangeXY(mx, my, tx, ty);
-            x = tx;
-            y = ty;
+            x = mx;
+            y = my;
         }
     }
 }
@@ -117,14 +115,15 @@ void Update()
 
 int main(int argc, char *argv[])
 {
-    CtoGui::Init(&argc, argv, 600, 400, "Test");
+    CtoGui::Init(&argc, argv, 400, 600, "Test");
     CtoGui::SetImgSize(10, 10);
     CtoGui::SetImg('*', "img\\star.bmp");
-    CtoGui::SetScreenSize(60,40);
+    CtoGui::SetScreenSize(40,60);
     CtoGui::SetUpdateScreenFunc(&Update);
     CtoGui::SetSpecialFunc(&UDLR);
     CtoGui::SetKeyFunc(&WSAD);
     CtoGui::SetMouseFunc(&Move);
+    //CtoGui::SetUpdateTimer(1000);
 
     CtoGui::BeginPlay();
     return 0;
