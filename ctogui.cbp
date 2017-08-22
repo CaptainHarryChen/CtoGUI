@@ -62,6 +62,9 @@
 			<Option target="Release" />
 		</Unit>
 		<Unit filename="ctogui.h" />
+		<Unit filename="img/star.bmp">
+			<Option target="testCtoGui" />
+		</Unit>
 		<Unit filename="main.cpp">
 			<Option target="Debug" />
 			<Option target="Release" />

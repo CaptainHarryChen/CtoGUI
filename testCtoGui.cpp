@@ -109,6 +109,7 @@ void Move(int button, int state, int mx, int my)
 void Update()
 {
     memset(Map, 0, sizeof Map);
+    y=(y+1)%60;
     Map[x][y] = '*';
     CtoGui::DrawScreen((char*)Map);
 }
@@ -119,11 +120,11 @@ int main(int argc, char *argv[])
     CtoGui::SetImgSize(10, 10);
     CtoGui::SetImg('*', "img\\star.bmp");
     CtoGui::SetScreenSize(40,60);
-    CtoGui::SetUpdateScreenFunc(&Update);
-    CtoGui::SetSpecialFunc(&UDLR);
-    CtoGui::SetKeyFunc(&WSAD);
-    CtoGui::SetMouseFunc(&Move);
-    //CtoGui::SetUpdateTimer(1000);
+    CtoGui::SetUpdateScreenFunc(Update);
+    CtoGui::SetSpecialFunc(UDLR);
+    CtoGui::SetKeyFunc(WSAD);
+    CtoGui::SetMouseFunc(Move);
+    CtoGui::SetUpdateTimer(100);
 
     CtoGui::BeginPlay();
     return 0;
