@@ -215,3 +215,20 @@ void CtoGui::ChangeXY(int x, int y, int &resx, int &resy)
     resy = y / img_height;
 }
 
+CtoGui::scene::scene()
+{
+    buf = NULL;
+    height = -1;
+    width = -1;
+}
+
+CtoGui::scene::scene(char *tbuf, int theight, int twidth)
+{
+    buf = tbuf;
+    height = theight;
+    width = twidth;
+}
+
+CtoGui::scene::~scene()
+{
+}

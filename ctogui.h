@@ -19,7 +19,7 @@
     #endif // TEST_DLL
 #endif // BUILD_DLL
 
-#include<GL/glut.h>
+#include"glut.h"
 #include<GL/glext.h>
 
 #define TIMER_UPDATE 1
@@ -43,6 +43,17 @@ namespace CtoGui
     void DLL_EXPORT DrawScreen(const char *buf);
     void DLL_EXPORT BeginPlay();
     void DLL_EXPORT ChangeXY(int x, int y, int &resx, int &resy);
+
+    struct DLL_EXPORT scene
+    {
+        char *buf;
+        int height, width;
+
+        scene();
+        scene(char *tbuf, int theight, int twidth);
+        ~scene();
+
+    };
 
     int img_width = -1, img_height = -1;
     int scr_width = -1, scr_height = -1;
