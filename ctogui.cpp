@@ -1,9 +1,12 @@
 #include"ctogui.h"
 #include<cstdio>
+#include<vector>
+using std::vector;
 
 void Display();
 void Idle();
 void Timer(int id);
+void DrawString(const char*);
 GLubyte* ReadBMP(const char *bpath);
 
 void (*UpdateScreen)(void) = NULL;
@@ -14,6 +17,27 @@ int cur = 0;
 bool timer_setted = false;
 char *scr[2] = {NULL};
 GLubyte *imgs[256] = {NULL};
+struct Text
+{
+    int siz;
+    const char *font;
+    int R,G,B;
+    int x, y;
+    const char *str;
+    Text(){}
+    Text(int _siz,const char*_f,int r,int g,int b,int _x, int _y, const char *s)
+    {
+        siz = _siz;
+        font = _f;
+        R = r;
+        G = g;
+        B = b;
+        x = _x;
+        y = _y;
+        str = s;
+    }
+};
+vector<Text>PS;
 
 void Display()
 {
@@ -35,6 +59,18 @@ void Display()
                 glDrawPixels(img_width, img_height, GL_BGR_EXT, GL_UNSIGNED_BYTE, imgs[(int)scr[cur][pos]]);
             }
         }
+    HFONT hFont, hOldFont;
+    for(vector<Text>::iterator it = PS.begin(); it!=PS.end(); it++)
+    {
+        hFont = CreateFont(it->siz, 0, 0, 0, FW_MEDIUM, 0, 0, 0,
+        ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, it->font);
+        hOldFont = (HFONT)SelectObject(wglGetCurrentDC(), hFont);
+        DeleteObject(hOldFont);
+        glColor3d(1.0*it->R/256, 1.0*it->G/256, 1.0*it->B/256);
+        glRasterPos2d(it->x, it->y);
+        DrawString(it->str);
+    }
 
     glutSwapBuffers();
 }
@@ -43,6 +79,7 @@ void Idle()
 {
     using namespace CtoGui;
 
+    PS.clear();
     if(timer_setted == false)
     {
         if(UpdateScreen != NULL)
@@ -90,6 +127,21 @@ void OnMouse(int button, int state, int x, int y)
     CtoGui::ChangeXY(x, y, tx, ty);
     if(MouseProcess != NULL)
         MouseProcess(button, state, ty, tx);
+}
+
+void DrawString(const char *str)
+{
+    static bool isFirstCall = true;
+    static GLuint lists;
+
+    if(isFirstCall)
+    {
+         isFirstCall = false;
+         lists = glGenLists(128);
+         wglUseFontBitmaps(wglGetCurrentDC(), 0, 128, lists);
+    }
+    for(int i = 0; str[i] != '\0'; i++)
+         glCallList(lists + str[i]);
 }
 
 void CtoGui::Init(int *argc, char **argv, int height, int width, const char *title)
@@ -215,3 +267,7 @@ void CtoGui::ChangeXY(int x, int y, int &resx, int &resy)
     resy = y / img_height;
 }
 
+void CtoGui::PrintString(int size, const char *font, int R, int G, int B, int x, int y, const char *str)
+{
+    PS.push_back(Text(size, font, R, G, B, x, y, str));
+}

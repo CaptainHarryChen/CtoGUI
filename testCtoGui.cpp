@@ -112,6 +112,7 @@ void Update()
     y=(y+1)%60;
     Map[x][y] = '*';
     CtoGui::DrawScreen((char*)Map);
+    CtoGui::PrintString(72, "Comic Sans MS", 0, 255, 0, 10, 10, "Hello World!");
 }
 
 int main(int argc, char *argv[])

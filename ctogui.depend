@@ -13,14 +13,14 @@
 1500267050 source:g:\projects\ctogui\main.cpp
 	"main.h"
 
-1499857592 source:z:\projects\ctogui\ctogui.cpp
+1503496901 source:z:\projects\ctogui\ctogui.cpp
 	"ctogui.h"
-	<cstring>
 	<cstdio>
+	<vector>
 
-1499856218 z:\projects\ctogui\ctogui.h
-	"main.h"
-	<GL/glut.h>
+1503496524 z:\projects\ctogui\ctogui.h
+	<windows.h>
+	"glut.h"
 	<GL/glext.h>
 
 1499225858 z:\projects\ctogui\main.h
@@ -49,5 +49,13 @@
 	"ctogui.h"
 
 1501560570 source:g:\projects\ctogui\testctogui.cpp
+	"ctogui.h"
+
+903428686 z:\projects\ctogui\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1503495321 source:z:\projects\ctogui\testctogui.cpp
 	"ctogui.h"
 
