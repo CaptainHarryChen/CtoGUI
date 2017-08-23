@@ -19,7 +19,7 @@
     #endif // TEST_DLL
 #endif // BUILD_DLL
 
-#include<GL/glut.h>
+#include"glut.h"
 #include<GL/glext.h>
 
 #define TIMER_UPDATE 1
@@ -42,6 +42,7 @@ namespace CtoGui
     void DLL_EXPORT SetMouseFunc(void(*p)(int, int, int, int));
     void DLL_EXPORT DrawScreen(const char *buf);
     void DLL_EXPORT BeginPlay();
+    void DLL_EXPORT PrintString(int size, const char *font, int R, int G, int B, int x, int y, const char *str);
     void DLL_EXPORT ChangeXY(int x, int y, int &resx, int &resy);
 
     int img_width = -1, img_height = -1;
