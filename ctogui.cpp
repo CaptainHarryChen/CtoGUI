@@ -269,5 +269,5 @@ void CtoGui::ChangeXY(int x, int y, int &resx, int &resy)
 
 void CtoGui::PrintString(int size, const char *font, int R, int G, int B, int x, int y, const char *str)
 {
-    PS.push_back(Text(size, font, R, G, B, x, y, str));
+    PS.push_back(Text(size, font, R, G, B, y, x, str));
 }
