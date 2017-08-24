@@ -13,7 +13,7 @@
 1500267050 source:g:\projects\ctogui\main.cpp
 	"main.h"
 
-1503496901 source:z:\projects\ctogui\ctogui.cpp
+1503498129 source:z:\projects\ctogui\ctogui.cpp
 	"ctogui.h"
 	<cstdio>
 	<vector>
@@ -56,6 +56,6 @@
 	<GL/gl.h>
 	<GL/glu.h>
 
-1503498079 source:z:\projects\ctogui\testctogui.cpp
+1503498078 source:z:\projects\ctogui\testctogui.cpp
 	"ctogui.h"
 

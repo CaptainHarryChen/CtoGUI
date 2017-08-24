@@ -79,12 +79,12 @@ void Idle()
 {
     using namespace CtoGui;
 
-    PS.clear();
     if(timer_setted == false)
     {
+        PS.clear();
         if(UpdateScreen != NULL)
             (*UpdateScreen)();
-        Display();
+        glutPostRedisplay();
     }
 }
 
@@ -97,7 +97,7 @@ void Timer(int id)
     case TIMER_UPDATE:
         if(UpdateScreen != NULL)
             (*UpdateScreen)();
-        Display();
+        glutPostRedisplay();
         glutTimerFunc(time_to_update, &Timer, TIMER_UPDATE);
         break;
     default:
@@ -160,7 +160,7 @@ void CtoGui::Init(int *argc, char **argv, int height, int width, const char *tit
     glutCreateWindow(title);
 
     glutDisplayFunc(&Display);
-    glutIdleFunc(&Idle);
+    //glutIdleFunc(&Idle);
     glutKeyboardFunc(&OnKeyBoard);
     glutSpecialFunc(&OnSpecialKey);
     glutMouseFunc(&OnMouse);
