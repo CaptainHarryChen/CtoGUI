@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
     CtoGui::SetSpecialFunc(UDLR);
     CtoGui::SetKeyFunc(WSAD);
     CtoGui::SetMouseFunc(Move);
-    CtoGui::SetUpdateTimer(100);
+    CtoGui::SetUpdateTimer(1000);
 
     CtoGui::BeginPlay();
     return 0;

@@ -42,6 +42,7 @@
 					<Add library="glut32" />
 					<Add library="opengl32" />
 					<Add library="glu32" />
+					<Add library="gdi32" />
 				</Linker>
 			</Target>
 			<Target title="testCtoGui">
