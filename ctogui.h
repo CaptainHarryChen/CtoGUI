@@ -31,6 +31,19 @@ extern "C"
 
 namespace CtoGui
 {
+    struct DLL_EXPORT scene
+    {
+        int *buf;
+        int height, width;
+        int img_height,img_width;
+
+        scene();
+        scene(int *tbuf, int theight, int twidth);
+        ~scene();
+        void Draw();
+
+    };
+
     void DLL_EXPORT Init(int *argc, char **argv, int height, int width, const char *title);
     void DLL_EXPORT SetImgSize(int ih, int iw);
     void DLL_EXPORT SetImg(char ch, const char *bpath);
@@ -40,23 +53,10 @@ namespace CtoGui
     void DLL_EXPORT SetKeyFunc(void(*p)(unsigned char, int, int));
     void DLL_EXPORT SetSpecialFunc(void(*p)(int, int, int));
     void DLL_EXPORT SetMouseFunc(void(*p)(int, int, int, int));
-    void DLL_EXPORT DrawScreen(const char *buf);
+    void DLL_EXPORT DrawScreen(const scene &nowsce);
     void DLL_EXPORT BeginPlay();
     void DLL_EXPORT ChangeXY(int x, int y, int &resx, int &resy);
 
-    struct DLL_EXPORT scene
-    {
-        char *buf;
-        int height, width;
-
-        scene();
-        scene(char *tbuf, int theight, int twidth);
-        ~scene();
-
-    };
-
-    int img_width = -1, img_height = -1;
-    int scr_width = -1, scr_height = -1;
     int win_width = -1, win_height = -1;
     int time_to_update = -1;
 };
