@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1503599118 source:g:\projects\ctogui\ctogui.cpp
+1506665782 source:g:\projects\ctogui\ctogui.cpp
 	"ctogui.h"
 	<cstdio>
 
-1503606938 g:\projects\ctogui\ctogui.h
+1506682180 g:\projects\ctogui\ctogui.h
 	<windows.h>
 	"glut.h"
 	<GL/glext.h>
@@ -29,13 +29,14 @@
 	"main.h"
 	"ctogui.h"
 
-1500608462 source:e:\projects\ctogui\ctogui.cpp
+1506924602 source:e:\projects\ctogui\ctogui.cpp
 	"ctogui.h"
 	<cstdio>
+	<map>
 
-1501560438 e:\projects\ctogui\ctogui.h
-	"main.h"
-	<GL/glut.h>
+1506924836 e:\projects\ctogui\ctogui.h
+	<windows.h>
+	"glut.h"
 	<GL/glext.h>
 
 1501411766 e:\projects\ctogui\main.h
@@ -44,7 +45,7 @@
 1500267050 source:e:\projects\ctogui\main.cpp
 	"main.h"
 
-1501560954 source:e:\projects\ctogui\testctogui.cpp
+1506925130 source:e:\projects\ctogui\testctogui.cpp
 	"ctogui.h"
 
 1503291600 source:g:\projects\ctogui\testctogui.cpp
@@ -62,6 +63,11 @@
 	"ctogui.h"
 
 1503576698 z:\projects\ctogui\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1503576698 e:\projects\ctogui\glut.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>

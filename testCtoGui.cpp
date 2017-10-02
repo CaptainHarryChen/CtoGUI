@@ -1,7 +1,8 @@
 #include"ctogui.h"
+using namespace CtoGui;
 
 const int dir[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-char Map[40][60];
+int Map[40][60];
 int x, y;
 
 void UDLR(int key, int kx, int ky)
@@ -106,26 +107,30 @@ void Move(int button, int state, int mx, int my)
     }
 }
 
+scene S;
+
 void Update()
 {
     memset(Map, 0, sizeof Map);
     y=(y+1)%60;
-    Map[x][y] = '*';
-    CtoGui::DrawScreen((char*)Map);
+    Map[x][y] = 1;
+    for(int i = 0;i <= 40;i++)
+        for(int j = 0;j <= 60;j++)
+            Map[i][j] = 1;
+    S = scene((int*)Map, 40, 60);
+    DrawScreen(S);
 }
 
 int main(int argc, char *argv[])
 {
-    CtoGui::Init(&argc, argv, 400, 600, "Test");
-    CtoGui::SetImgSize(10, 10);
-    CtoGui::SetImg('*', "img\\star.bmp");
-    CtoGui::SetScreenSize(40,60);
-    CtoGui::SetUpdateScreenFunc(Update);
-    CtoGui::SetSpecialFunc(UDLR);
-    CtoGui::SetKeyFunc(WSAD);
-    CtoGui::SetMouseFunc(Move);
-    //CtoGui::SetUpdateTimer(100);
+    Init(&argc, argv, 400, 600, "Test");
+    SetImg(1, "img\\star.bmp");
+    SetUpdateScreenFunc(Update);
+    SetSpecialFunc(UDLR);
+    SetKeyFunc(WSAD);
+    SetMouseFunc(Move);
+    //SetUpdateTimer(100);
 
-    CtoGui::BeginPlay();
+    BeginPlay();
     return 0;
 }
